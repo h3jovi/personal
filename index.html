@@ -425,6 +425,34 @@
     padding: 12px 0;
   }
 
+  /* ─── CODE OF CONDUCT ─── */
+  .conduct-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(247,168,27,0.12);
+  }
+  .conduct-item:last-child { border-bottom: none; }
+
+  .conduct-num {
+    width: 36px; height: 36px;
+    background: var(--rotary-gold);
+    color: var(--rotary-blue-dark);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .conduct-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--white);
+  }
+
   /* Scrollbar for nav */
   @media (min-width: 600px) {
     .header h1 { font-size: 1.8rem; }
@@ -470,6 +498,7 @@
     <button class="nav-tab" onclick="showSection('fourway')">Four-Way Test</button>
     <button class="nav-tab" onclick="showSection('object')">Object</button>
     <button class="nav-tab" onclick="showSection('quote')">Quote</button>
+    <button class="nav-tab" onclick="showSection('conduct')">Code of Conduct</button>
   </div>
 </nav>
 
@@ -689,11 +718,36 @@
   </div>
 </section>
 
+<!-- ══════════════════ CODE OF CONDUCT ══════════════════ -->
+<section class="section" id="conduct">
+  <h2 class="section-heading">Rotarian Code of Conduct</h2>
+  <p class="section-sub">As a Rotarian, I will:</p>
+
+  <div class="card">
+    <div class="conduct-item">
+      <div class="conduct-num">1</div>
+      <div class="conduct-text">Act with integrity and high ethical standards in my personal and professional life.</div>
+    </div>
+    <div class="conduct-item">
+      <div class="conduct-num">2</div>
+      <div class="conduct-text">Deal fairly with others and treat them and their occupations with respect.</div>
+    </div>
+    <div class="conduct-item">
+      <div class="conduct-num">3</div>
+      <div class="conduct-text">Use my professional skills through Rotary to mentor young people, help those with special needs, and improve people's quality of life in my community and the world.</div>
+    </div>
+    <div class="conduct-item">
+      <div class="conduct-num">4</div>
+      <div class="conduct-text">Avoid behavior that reflects adversely on Rotary or other Rotarians.</div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer class="footer">
   <strong>Rotary Club of Victoria Island, Lagos</strong><br>
   Rotary International &middot; District 9112<br>
-  &copy; 2025–2026 Rotary Year
+  &copy; 2026–2027 Rotary Year
 </footer>
 
 <script>
