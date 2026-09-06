@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Rotary VI Club Member Companion</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rotary-blue: #003F87;
+    --rotary-blue-dark: #002D63;
+    --rotary-blue-light: #1a5ba8;
+    --rotary-gold: #F7A81B;
+    --rotary-gold-dark: #d48e0a;
+    --white: #FFFFFF;
+    --off-white: #F8F9FC;
+    --text-light: rgba(255,255,255,0.85);
+    --card-bg: rgba(255,255,255,0.06);
+    --card-border: rgba(247,168,27,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--rotary-blue-dark);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    background: linear-gradient(160deg, var(--rotary-blue-dark) 0%, var(--rotary-blue) 60%, var(--rotary-blue-light) 100%);
+    padding: 32px 20px 28px;
+    text-align: center;
+    position: relative;
+    border-bottom: 3px solid var(--rotary-gold);
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(247,168,27,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .gear-icon {
+    width: 56px; height: 56px;
+    margin: 0 auto 12px;
+    display: block;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+  }
+
+  .header h1 span {
+    color: var(--rotary-gold);
+  }
+
+  .header .subtitle {
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--rotary-gold);
+    margin-top: 6px;
+  }
+
+  .header .motto {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--text-light);
+    margin-top: 4px;
+    font-weight: 300;
+  }
+
+  /* ─── NAV TABS ─── */
+  .nav-container {
+    background: var(--rotary-blue-dark);
+    padding: 0 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--rotary-gold);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-container::-webkit-scrollbar { display: none; }
+
+  .nav-tabs {
+    display: flex;
+    gap: 2px;
+    min-width: max-content;
+    padding: 8px 0;
+  }
+
+  .nav-tab {
+    background: transparent;
+    border: 1.5px solid transparent;
+    color: var(--text-light);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .nav-tab.active {
+    background: var(--rotary-gold);
+    color: var(--rotary-blue-dark);
+    border-color: var(--rotary-gold);
+  }
+
+  .nav-tab:not(.active):hover {
+    border-color: var(--rotary-gold);
+    color: var(--rotary-gold);
+  }
+
+  /* ─── SECTIONS ─── */
+  .section {
+    display: none;
+    padding: 24px 16px 48px;
+    animation: fadeIn 0.3s ease;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--rotary-gold);
+    margin-bottom: 6px;
+  }
+
+  .section-sub {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-bottom: 24px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  /* ─── CARD ─── */
+  .card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--card-border);
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(4px);
+  }
+
+  .card-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--rotary-gold);
+    margin-bottom: 16px;
+  }
+
+  /* ─── PRAYER / GRACE ─── */
+  .verse-block {
+    font-size: 1.1rem;
+    line-height: 1.85;
+    font-weight: 400;
+    color: var(--white);
+  }
+
+  .verse-block .stanza {
+    margin-bottom: 20px;
+  }
+
+  .verse-block .amen {
+    font-weight: 600;
+    color: var(--rotary-gold);
+    font-size: 1.05rem;
+    margin-top: 8px;
+  }
+
+  /* ─── FOUR-WAY TEST ─── */
+  .test-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .test-item:last-child { margin-bottom: 0; }
+
+  .test-badge {
+    background: var(--rotary-gold);
+    color: var(--rotary-blue-dark);
+    font-size: 0.65rem;
+    font-weight: 700;
+    font-style: italic;
+    padding: 5px 10px;
+    border-radius: 4px 12px 12px 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 3px;
+    min-width: 56px;
+    text-align: center;
+  }
+
+  .test-text {
+    font-size: 1rem;
+    line-height: 1.45;
+    font-weight: 400;
+    color: var(--white);
+  }
+
+  .test-text strong {
+    color: var(--rotary-gold);
+    font-weight: 700;
+  }
+
+  /* ─── OBJECT OF ROTARY ─── */
+  .object-intro {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .object-item {
+    border-left: 3px solid;
+    padding: 14px 16px;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 14px;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .object-item:nth-child(1) { border-color: #E91E8C; }
+  .object-item:nth-child(2) { border-color: #00897B; }
+  .object-item:nth-child(3) { border-color: #7B1FA2; }
+  .object-item:nth-child(4) { border-color: var(--rotary-gold); }
+
+  .object-label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--rotary-gold);
+    margin-bottom: 6px;
+  }
+
+  .object-text {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--white);
+  }
+
+  /* ─── INVOCATIONS ─── */
+  .invocation-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(247,168,27,0.2);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .invocation-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    background: var(--rotary-gold);
+    color: var(--rotary-blue-dark);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .invocation-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--rotary-gold);
+    margin-bottom: 12px;
+  }
+
+  .invocation-text {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--white);
+    font-style: italic;
+  }
+
+  .invocation-source {
+    font-size: 0.68rem;
+    color: rgba(247,168,27,0.7);
+    margin-top: 10px;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* ─── QUOTE ─── */
+  .quote-block {
+    text-align: center;
+    padding: 32px 20px;
+    background: linear-gradient(135deg, rgba(0,63,135,0.6), rgba(0,45,99,0.8));
+    border: 2px solid var(--rotary-gold);
+    border-radius: 20px;
+    position: relative;
+  }
+
+  .quote-mark {
+    font-size: 4rem;
+    color: var(--rotary-gold);
+    line-height: 0.6;
+    font-family: Georgia, serif;
+    opacity: 0.6;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--white);
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .quote-author {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rotary-gold);
+  }
+
+  /* ─── MEETING ORDER ─── */
+  .agenda-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(247,168,27,0.1);
+  }
+
+  .agenda-item:last-child { border-bottom: none; }
+
+  .agenda-num {
+    width: 32px; height: 32px;
+    background: var(--rotary-blue-light);
+    border: 1.5px solid var(--rotary-gold);
+    color: var(--rotary-gold);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .agenda-content { flex: 1; }
+
+  .agenda-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 2px;
+  }
+
+  .agenda-detail {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    line-height: 1.4;
+  }
+
+  .agenda-tag {
+    font-size: 0.62rem;
+    background: rgba(247,168,27,0.15);
+    color: var(--rotary-gold);
+    border: 1px solid rgba(247,168,27,0.3);
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 4px;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    text-align: center;
+    padding: 24px 16px;
+    background: var(--rotary-blue-dark);
+    border-top: 1px solid rgba(247,168,27,0.2);
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+  }
+
+  .footer strong { color: var(--rotary-gold); }
+
+  /* ─── GRACE CARD ─── */
+  .grace-block {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    line-height: 1.9;
+    font-weight: 700;
+    color: var(--white);
+    text-align: center;
+    padding: 12px 0;
+  }
+
+  /* ─── CODE OF CONDUCT ─── */
+  .conduct-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(247,168,27,0.12);
+  }
+  .conduct-item:last-child { border-bottom: none; }
+
+  .conduct-num {
+    width: 36px; height: 36px;
+    background: var(--rotary-gold);
+    color: var(--rotary-blue-dark);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .conduct-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--white);
+  }
+
+
+  /* ─── ABOUT ROTARY / FLASHCARDS ─── */
+  .collection-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .coll-btn {
+    background: transparent;
+    border: 1.5px solid var(--rotary-gold);
+    color: var(--rotary-gold);
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .coll-btn.active,
+  .coll-btn:hover {
+    background: var(--rotary-gold);
+    color: var(--rotary-blue-dark);
+  }
+
+  .fc-grid {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .fc-grid.visible { display: flex; }
+
+  .flashcard {
+    perspective: 1000px;
+    min-height: 160px;
+    cursor: pointer;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    min-height: 160px;
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    min-height: 160px;
+    border-radius: 16px;
+    padding: 22px 20px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .flashcard-front {
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    border: 1.5px solid rgba(247,168,27,0.3);
+  }
+
+  .flashcard-back {
+    background: linear-gradient(135deg, var(--rotary-gold), var(--rotary-gold-dark));
+    transform: rotateY(180deg);
+    border: 1.5px solid var(--rotary-gold-dark);
+  }
+
+  .fc-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(247,168,27,0.7);
+    margin-bottom: 10px;
+  }
+
+  .fc-question {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .fc-tap-hint {
+    font-size: 0.62rem;
+    color: rgba(255,255,255,0.35);
+    margin-top: 12px;
+    text-align: right;
+  }
+
+  .fc-back-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(0,45,99,0.6);
+    margin-bottom: 8px;
+  }
+
+  .fc-answer {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--rotary-blue-dark);
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .fc-tap-back {
+    font-size: 0.62rem;
+    color: rgba(0,45,99,0.45);
+    margin-top: 12px;
+    text-align: right;
+  }
+
+  .fc-progress {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 6px;
+    margin-bottom: 18px;
+  }
+
+  .fc-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .fc-nav-btn {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(247,168,27,0.3);
+    color: var(--rotary-gold);
+    padding: 9px 20px;
+    border-radius: 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+    flex: 1;
+  }
+
+  .fc-nav-btn:hover { background: rgba(247,168,27,0.15); }
+  .fc-nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+  .fc-counter {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    white-space: nowrap;
+    text-align: center;
+    min-width: 60px;
+  }
+
+  /* Scrollbar for nav */
+  @media (min-width: 600px) {
+    .header h1 { font-size: 1.8rem; }
+    .nav-tab { font-size: 0.78rem; padding: 10px 18px; }
+    .section { padding: 28px 24px 56px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <svg class="gear-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="30" stroke="#F7A81B" stroke-width="6" fill="none"/>
+    <circle cx="50" cy="50" r="12" stroke="#F7A81B" stroke-width="5" fill="none"/>
+    <!-- Gear teeth -->
+    <rect x="46" y="10" width="8" height="14" rx="2" fill="#F7A81B"/>
+    <rect x="46" y="76" width="8" height="14" rx="2" fill="#F7A81B"/>
+    <rect x="10" y="46" width="14" height="8" rx="2" fill="#F7A81B"/>
+    <rect x="76" y="46" width="14" height="8" rx="2" fill="#F7A81B"/>
+    <rect x="20.2" y="20.2" width="14" height="8" rx="2" fill="#F7A81B" transform="rotate(45 20.2 20.2)"/>
+    <rect x="65.8" y="65.8" width="14" height="8" rx="2" fill="#F7A81B" transform="rotate(45 65.8 65.8)"/>
+    <rect x="20.2" y="71.6" width="14" height="8" rx="2" fill="#F7A81B" transform="rotate(-45 20.2 71.6)"/>
+    <rect x="65.8" y="28.4" width="14" height="8" rx="2" fill="#F7A81B" transform="rotate(-45 65.8 28.4)"/>
+    <!-- Spokes -->
+    <line x1="50" y1="38" x2="50" y2="62" stroke="#F7A81B" stroke-width="3"/>
+    <line x1="38" y1="50" x2="62" y2="50" stroke="#F7A81B" stroke-width="3"/>
+    <line x1="41.5" y1="41.5" x2="58.5" y2="58.5" stroke="#F7A81B" stroke-width="3"/>
+    <line x1="58.5" y1="41.5" x2="41.5" y2="58.5" stroke="#F7A81B" stroke-width="3"/>
+  </svg>
+  <h1>Rotary Club of<br><span>Victoria Island, Lagos</span></h1>
+  <p class="subtitle">Rotary International &middot; District 9112</p>
+  <p class="motto">"Service Above Self" &nbsp;·&nbsp; Member Companion</p>
+</header>
+
+<!-- NAV -->
+<nav class="nav-container">
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showSection('agenda', this)">Agenda</button>
+    <button class="nav-tab" onclick="showSection('prayer', this)">Prayer</button>
+    <button class="nav-tab" onclick="showSection('grace', this)">Grace</button>
+    <button class="nav-tab" onclick="showSection('invocations', this)">Invocations</button>
+    <button class="nav-tab" onclick="showSection('fourway', this)">Four-Way Test</button>
+    <button class="nav-tab" onclick="showSection('object', this)">Object</button>
+    <button class="nav-tab" onclick="showSection('quote', this)">Quote</button>
+    <button class="nav-tab" onclick="showSection('anthem', this)">Anthem</button>
+    <button class="nav-tab" onclick="showSection('conduct', this)">Code of Conduct</button>
+    <button class="nav-tab" onclick="showSection('about', this)">About Rotary</button>
+  </div>
+</nav>
+
+<!-- ══════════════════ AGENDA ══════════════════ -->
+<section class="section active" id="agenda">
+  <h2 class="section-heading">Meeting Order</h2>
+  <p class="section-sub">Typical running order for a Rotary Club of VI, Lagos meeting</p>
+
+  <div class="card">
+    <div class="agenda-item">
+      <div class="agenda-num">1</div>
+      <div class="agenda-content">
+        <div class="agenda-title">Opening Bell &amp; Call to Order</div>
+        <div class="agenda-detail">President calls the meeting to order</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">2</div>
+      <div class="agenda-content">
+        <div class="agenda-title">Invocation</div>
+        <div class="agenda-detail">Opening prayer / reflection by an appointed member</div>
+        <span class="agenda-tag">Rotary Prayer or Invocation</span>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">3</div>
+      <div class="agenda-content">
+        <div class="agenda-title">Nigerian National Anthem</div>
+        <div class="agenda-detail">Sung by all in attendance</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">4</div>
+      <div class="agenda-content">
+        <div class="agenda-title">Four-Way Test</div>
+        <div class="agenda-detail">Recited in unison by all members</div>
+        <span class="agenda-tag">Rotary Creed</span>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">5</div>
+      <div class="agenda-content">
+        <div class="agenda-title">Welcome &amp; Introductions</div>
+        <div class="agenda-detail">Guests, visiting Rotarians, and new members welcomed</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">6</div>
+      <div class="agenda-content">
+        <div class="agenda-title">Sergeant-at-Arms</div>
+        <div class="agenda-detail">Fines, announcements, and fellowship activities</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">7</div>
+      <div class="agenda-content">
+        <div class="agenda-title">Club &amp; Committee Reports</div>
+        <div class="agenda-detail">Updates from committee chairs and club officers</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">8</div>
+      <div class="agenda-content">
+        <div class="agenda-title">Meal / Fellowship</div>
+        <div class="agenda-detail">Grace said before dining together</div>
+        <span class="agenda-tag">Rotary Grace</span>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">9</div>
+      <div class="agenda-content">
+        <div class="agenda-title">Guest Speaker</div>
+        <div class="agenda-detail">Presentation followed by Q&amp;A</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">10</div>
+      <div class="agenda-content">
+        <div class="agenda-title">Any Other Business</div>
+        <div class="agenda-detail">Member announcements and closing remarks</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">11</div>
+      <div class="agenda-content">
+        <div class="agenda-title">Closing Bell</div>
+        <div class="agenda-detail">President closes the meeting</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ PRAYER ══════════════════ -->
+<section class="section" id="prayer">
+  <h2 class="section-heading">Rotary Prayer</h2>
+  <p class="section-sub">Recited at the opening of meetings</p>
+
+  <div class="card">
+    <div class="verse-block">
+      <div class="stanza">
+        Inspire Rotarians, Lord we ask<br>
+        To live as we profess<br>
+        To dignify our daily task<br>
+        And serve in selflessness
+      </div>
+      <div class="stanza">
+        For fellowship which here we share<br>
+        We offer thanks to thee<br>
+        We pray it will be our care<br>
+        To spread it bounteously.
+      </div>
+      <div class="amen">Amen</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ GRACE ══════════════════ -->
+<section class="section" id="grace">
+  <h2 class="section-heading">The Rotary Grace</h2>
+  <p class="section-sub">Said before meals at club meetings</p>
+
+  <div class="card">
+    <div class="grace-block">
+      O Lord and giver of all good<br>
+      We thank thee for our daily food<br>
+      May Rotary friends and Rotary ways<br>
+      Help us to serve Thee all our days.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ INVOCATIONS ══════════════════ -->
+<section class="section" id="invocations">
+  <h2 class="section-heading">Invocations</h2>
+  <p class="section-sub">Three styles for the member giving the opening invocation. The invocation is typically given right after the opening bell, before the meal or official business begins. A different member leads each week.</p>
+
+  <div class="invocation-card">
+    <div class="invocation-number">1</div>
+    <div class="invocation-title">Service-Focused Invocation</div>
+    <p class="invocation-text">"Let us be grateful for the opportunity to be Rotarians and serve our communities. Rotarians dig wells from which we will never drink, vaccinate children we will never meet, and plant trees we will never sit under. May we continue to find true happiness in helping others. Amen."</p>
+    <p class="invocation-source">Adapted from Redondo Beach Rotary Club &middot; Rotary District 5280</p>
+  </div>
+
+  <div class="invocation-card">
+    <div class="invocation-number">2</div>
+    <div class="invocation-title">Four-Way Test Invocation</div>
+    <p class="invocation-text">"Eternal Creator, we gather today as a grateful and dedicated people. Thank you for the gift of Rotary and the fellowship we share. May our hearts be sensitive to those in need, and as we go about our service, guide our thoughts, words, and actions to align with the Four-Way Test. Amen."</p>
+  </div>
+
+  <div class="invocation-card">
+    <div class="invocation-number">3</div>
+    <div class="invocation-title">Short &amp; Reflective Invocation</div>
+    <p class="invocation-text">"Lord of the Universe, help us as Rotarians and humans to do good, to be honest in all our dealings, and to serve others. Keep us humble and grant us the strength to faithfully fulfill our obligations to our community, our nation, and the world. Amen."</p>
+  </div>
+</section>
+
+<!-- ══════════════════ FOUR-WAY TEST ══════════════════ -->
+<section class="section" id="fourway">
+  <h2 class="section-heading">The Four-Way Test</h2>
+  <p class="section-sub">Of the things we think, say or do — recited in unison at every meeting</p>
+
+  <div class="card">
+    <div class="test-item">
+      <span class="test-badge">first</span>
+      <span class="test-text">Is it the <strong>TRUTH</strong>?</span>
+    </div>
+    <div class="test-item">
+      <span class="test-badge">second</span>
+      <span class="test-text">Is it <strong>FAIR</strong> to all concerned?</span>
+    </div>
+    <div class="test-item">
+      <span class="test-badge">third</span>
+      <span class="test-text">Will it build <strong>GOODWILL</strong> and <strong>BETTER FRIENDSHIPS</strong>?</span>
+    </div>
+    <div class="test-item">
+      <span class="test-badge">fourth</span>
+      <span class="test-text">Will it be <strong>BENEFICIAL</strong> to all concerned?</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ OBJECT ══════════════════ -->
+<section class="section" id="object">
+  <h2 class="section-heading">Object of Rotary</h2>
+  <p class="section-sub">The Object of Rotary is to encourage and foster the ideal of service as a basis of worthy enterprise and, in particular, to encourage and foster:</p>
+
+  <div class="object-item">
+    <div class="object-label">First</div>
+    <div class="object-text">The development of acquaintance as an opportunity for service;</div>
+  </div>
+
+  <div class="object-item">
+    <div class="object-label">Second</div>
+    <div class="object-text">High ethical standards in business and professions; the recognition of the worthiness of all useful occupations; and the dignifying of each Rotarian's occupation as an opportunity to serve society;</div>
+  </div>
+
+  <div class="object-item">
+    <div class="object-label">Third</div>
+    <div class="object-text">The application of the ideal of service in each Rotarian's personal, business, and community life;</div>
+  </div>
+
+  <div class="object-item">
+    <div class="object-label">Fourth</div>
+    <div class="object-text">The advancement of international understanding, goodwill, and peace through a world fellowship of business and professional persons united in the ideal of service.</div>
+  </div>
+</section>
+
+<!-- ══════════════════ QUOTE ══════════════════ -->
+<section class="section" id="quote">
+  <h2 class="section-heading">Words to Inspire</h2>
+  <p class="section-sub">A reflection for Rotarians of Victoria Island, Lagos</p>
+
+  <div class="quote-block">
+    <span class="quote-mark">&ldquo;</span>
+    <p class="quote-text">No one can tell us what Rotary will be tomorrow, but one thing is certain: what Rotary will be tomorrow depends upon what Rotarians do today.</p>
+    <p class="quote-author">— Arch C. Klumph</p>
+  </div>
+</section>
+
+<!-- ══════════════════ NATIONAL ANTHEM ══════════════════ -->
+<section class="section" id="anthem">
+  <h2 class="section-heading">Nigerian National Anthem</h2>
+  <p class="section-sub">"Nigeria, We Hail Thee" — reinstated 29 May 2024<br>Lyrics: Lillian Jean Williams (1959) &middot; Music: Frances Benda (1959)</p>
+
+  <div class="card">
+    <div class="verse-block">
+      <div class="stanza">
+        Nigeria, we hail thee,<br>
+        Our own dear native land,<br>
+        Though tribe and tongue may differ,<br>
+        In brotherhood we stand,<br>
+        Nigerians all, and proud to serve<br>
+        Our sovereign Motherland.
+      </div>
+      <div class="stanza">
+        Our flag shall be a symbol<br>
+        That truth and justice reign,<br>
+        In peace or battle honoured,<br>
+        And this we count as gain,<br>
+        To hand on to our children<br>
+        A banner without stain.
+      </div>
+      <div class="stanza">
+        O God of all creation,<br>
+        Grant this our one request,<br>
+        Help us to build a nation<br>
+        Where no man is oppressed,<br>
+        And so with peace and plenty<br>
+        Nigeria may be blessed.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CODE OF CONDUCT ══════════════════ -->
+<section class="section" id="conduct">
+  <h2 class="section-heading">Rotarian Code of Conduct</h2>
+  <p class="section-sub">As a Rotarian, I will:</p>
+
+  <div class="card">
+    <div class="conduct-item">
+      <div class="conduct-num">1</div>
+      <div class="conduct-text">Act with integrity and high ethical standards in my personal and professional life.</div>
+    </div>
+    <div class="conduct-item">
+      <div class="conduct-num">2</div>
+      <div class="conduct-text">Deal fairly with others and treat them and their occupations with respect.</div>
+    </div>
+    <div class="conduct-item">
+      <div class="conduct-num">3</div>
+      <div class="conduct-text">Use my professional skills through Rotary to mentor young people, help those with special needs, and improve people's quality of life in my community and the world.</div>
+    </div>
+    <div class="conduct-item">
+      <div class="conduct-num">4</div>
+      <div class="conduct-text">Avoid behavior that reflects adversely on Rotary or other Rotarians.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════ ABOUT ROTARY ══════════════════ -->
+<section class="section" id="about">
+  <h2 class="section-heading">About Rotary</h2>
+  <p class="section-sub">Tap any card to reveal the answer. Use the collections to explore different topics.</p>
+
+  <!-- Collection selector -->
+  <div class="collection-bar">
+    <button class="coll-btn active" onclick="switchCollection('ri', this)">🌍 Rotary International</button>
+    <button class="coll-btn" onclick="switchCollection('nigeria', this)">🇳🇬 Rotary in Nigeria</button>
+    <button class="coll-btn" onclick="switchCollection('rcvi', this)">🏙️ RC Victoria Island</button>
+    <button class="coll-btn" onclick="switchCollection('terms', this)">📖 Key Terms</button>
+    <button class="coll-btn" onclick="switchCollection('polio', this)">💉 Polio &amp; Service</button>
+    <button class="coll-btn" onclick="switchCollection('dates', this)">📅 Key Dates</button>
+  </div>
+
+  <!-- Single flashcard display -->
+  <div id="fc-display">
+    <p class="fc-progress" id="fc-progress">Card 1 of 1</p>
+    <div class="flashcard" id="fc-card" onclick="flipCard()">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <div class="fc-label" id="fc-label">Rotary International</div>
+          <div class="fc-question" id="fc-question">Loading...</div>
+          <div class="fc-tap-hint">Tap to reveal ▸</div>
+        </div>
+        <div class="flashcard-back">
+          <div class="fc-back-label">Answer</div>
+          <div class="fc-answer" id="fc-answer">Loading...</div>
+          <div class="fc-tap-back">Tap to flip back ↩</div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-nav">
+      <button class="fc-nav-btn" id="fc-prev" onclick="navCard(-1)">◀ Prev</button>
+      <span class="fc-counter" id="fc-counter">1 / 1</span>
+      <button class="fc-nav-btn" id="fc-next" onclick="navCard(1)">Next ▶</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <strong>Rotary Club of Victoria Island, Lagos</strong><br>
+  Rotary International &middot; District 9112<br>
+  &copy; 2026–2027 Rotary Year
+</footer>
+
+<script>
+  // ─── Navigation ───
+  function showSection(id, el) {
+    document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    var target = document.getElementById(id);
+    if (target) target.classList.add('active');
+    if (el) el.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ─── Flashcard Data ───
+  var collections = {
+    ri: {
+      label: "Rotary International",
+      cards: [
+        { q: "When and where was Rotary founded?", a: "23 February 1905 in Chicago, Illinois, by attorney Paul P. Harris, along with Silvester Schiele, Gustavus Loehr, and Hiram Shorey." },
+        { q: "Where does the name Rotary come from?", a: "From the club's early practice of rotating meetings among members' offices." },
+        { q: "When did Rotary become international, and what was it first called?", a: "It became international in 1910-1912 with the Rotary Club of Winnipeg, Canada, and was renamed the International Association of Rotary Clubs in 1912." },
+        { q: "When did Rotary adopt its current name?", a: "In 1922, by which time it had clubs on six continents." },
+        { q: "Where is Rotary International headquartered?", a: "Evanston, Illinois, USA." },
+        { q: "How large is Rotary International today?", a: "Roughly 1.2+ million members in more than 46,000 clubs across 200+ countries and geographic areas." },
+        { q: "What is Rotary's official emblem?", a: "The Rotary Wheel — a gear with 24 cogs and 6 spokes, one of the most recognised service-club emblems in the world." },
+        { q: "What is Rotary's principal motto?", a: "Service Above Self — formally adopted in 1950 and reaffirmed as the principal motto in 1989. The secondary motto is He Profits Most Who Serves Best." },
+        { q: "Who wrote the Four-Way Test, and when?", a: "Herbert J. Taylor wrote it in 1932 to help save his company from bankruptcy. Rotary formally adopted it in 1943. It has since been translated into over 100 languages." },
+        { q: "What are Rotary's Seven Areas of Focus?", a: "1. Peace & conflict prevention, 2. Disease prevention & treatment, 3. Water, sanitation & hygiene, 4. Maternal & child health, 5. Basic education & literacy, 6. Economic & community development, 7. Environment." },
+        { q: "What are Rotary's Five Avenues of Service?", a: "1. Club Service, 2. Vocational Service, 3. Community Service, 4. International Service, 5. Youth Service." },
+        { q: "What are Rotary's sister programmes for young people?", a: "Rotaract (young professionals 18-30, est. 1968), Interact (secondary-school age, est. 1962), Rotary Youth Exchange, and Rotary Youth Leadership Awards (RYLA)." },
+        { q: "What is The Rotary Foundation?", a: "Rotary's charitable arm, established in 1928, which funds global humanitarian and educational grants including Global Grants and District Grants." },
+        { q: "What is the 2026-27 Rotary presidential message?", a: "Create Lasting Impact — urging members to translate connection into sustainable, meaningful change." },
+        { q: "What role did Rotary play in drafting the United Nations Charter?", a: "Rotary delegates participated in drafting the United Nations Charter in San Francisco in 1945." }
+      ]
+    },
+    nigeria: {
+      label: "Rotary in Nigeria",
+      cards: [
+        { q: "When did Rotary arrive in Nigeria?", a: "In 1961 — making Nigeria the 32nd African nation to receive Rotary." },
+        { q: "What is Nigeria's first Rotary club, and when was it chartered?", a: "The Rotary Club of Kano — chartered 28 April 1961." },
+        { q: "What is Nigeria's second Rotary club?", a: "The Rotary Club of Lagos — chartered 30 May 1961, with the involvement of S. L. Edu and Simeon Adebo." },
+        { q: "Which was Nigeria's third Rotary club?", a: "The Rotary Club of Ibadan — chartered 24 November 1961." },
+        { q: "What was the first all-Nigerian Rotary district?", a: "District 911, created in 1982-83, first led by District Governor Julius Adelusi-Adeluyi." },
+        { q: "Who is Jonathan B. Majiyagbe and what is his Rotary significance?", a: "A member of the Rotary Club of Kano/Abuja Metro, he served as RI President for 2003-04 with the theme Lend a Hand — the first Nigerian, first African, and first Black Rotarian to lead Rotary International." },
+        { q: "Who is the RI President for 2026-27?", a: "Olayinka (Yinka) Hakeem Babalola, from the Rotary Club of Trans Amadi, Port Harcourt — the second Nigerian and second African to hold the role. An attorney and energy-sector executive who began as a Rotaractor in the 1980s." },
+        { q: "When was Nigeria's last wild poliovirus case recorded?", a: "August 2016, a milestone that helped pave the way for the WHO African Region's wild-polio-free certification in 2020." },
+        { q: "How much has Rotary contributed to polio eradication in Nigeria?", a: "Over $268 million, as part of a global effort that has reduced wild polio cases by more than 99.9%." },
+        { q: "Which are some of Nigeria's current Rotary districts?", a: "9110, 9111, 9112, 9125, 9126, 9127, 9141, 9142 — created through redistricting since the original all-Nigerian District 911 in 1982." },
+        { q: "How large is Rotary across Africa today?", a: "Roughly 20,000+ Rotarians across 800+ clubs in over 50 African countries." },
+        { q: "Which was Africa's first Rotary club?", a: "The Rotary Club of Johannesburg, South Africa, chartered in 1921. West Africa's first was in Dakar, Senegal, in 1939." }
+      ]
+    },
+    rcvi: {
+      label: "RC Victoria Island, Lagos",
+      cards: [
+        { q: "When was the Rotary Club of Victoria Island, Lagos chartered?", a: "In 1982, with a charter ceremony held that same year to mark its founding." },
+        { q: "Which Rotary district does RC VI belong to?", a: "Rotary District 9112. The club was originally under District 9110 before redistricting placed it in 9112." },
+        { q: "When and where does RC VI meet?", a: "Every Thursday, 6:30 p.m. for 7 p.m., at the Lagos Motor Boat Club, Awolowo Road, Ikoyi, Lagos." },
+        { q: "What were RC VI's previous meeting venues?", a: "It began at Eko Hotel (Adetokunbo Ademola Street, Victoria Island), moved to Federal Palace Hotel in July 1989, and later settled at the Lagos Motor Boat Club." },
+        { q: "What land was allocated to RC VI by Lagos State Government, and when?", a: "In 1984, land on Amodu Ojikutu Street (off Saka Tinubu Street) for a recreation area — the club developed a standard tennis court and children's play area there." },
+        { q: "What vehicle safety project did RC VI run on the Third Mainland Bridge?", a: "A Vehicle Accident Recovery Program, using a towing vehicle donated by Julius Berger." },
+        { q: "What educational project did RC VI run in local schools?", a: "An Essay Competition, which was a District 9110 project run in local schools." },
+        { q: "What Rotaract club did RC VI found?", a: "The Rotaract Club of the School of Oceanography." },
+        { q: "What community project did RC VI set up at Victoria Island Police Station?", a: "A computer-based project to help identify and recover stolen vehicles." },
+        { q: "What educational activities did RC VI conduct at A.D.R.A.O. International School?", a: "Annual lectures and inter-house sports competitions." }
+      ]
+    },
+    terms: {
+      label: "Key Rotary Terms",
+      cards: [
+        { q: "What is a Paul Harris Fellow?", a: "A recognition given to those who contribute — or in whose honour is contributed — US$1,000 to The Rotary Foundation." },
+        { q: "What is the Arch Klumph Society?", a: "The Rotary Foundation's most distinguished donor recognition, for cumulative giving of $250,000 or more." },
+        { q: "What is a Rotary District?", a: "A grouping of Rotary clubs in a geographic region, led by a District Governor (DG)." },
+        { q: "What is a Rotary Zone?", a: "A larger grouping of multiple districts, overseen by a Rotary Director." },
+        { q: "What is a Rotary Charter?", a: "The formal, official establishment of a new Rotary club by Rotary International." },
+        { q: "What does People of Action mean in Rotary?", a: "Rotary's global public-image campaign branding, describing Rotarians as hands-on problem solvers who make real, tangible change." },
+        { q: "What is Rotaract?", a: "Rotary's service programme for young adults typically aged 18-30, established in 1968." },
+        { q: "What is Interact?", a: "Rotary's service club for youth aged 12-18, based in schools and communities, established in 1962." },
+        { q: "What is RYLA?", a: "Rotary Youth Leadership Awards — a leadership training programme for young people, run by Rotary clubs and districts." },
+        { q: "What is the Council on Legislation?", a: "Rotary's legislative body that meets every three years to revise Rotary's governing documents." },
+        { q: "What is a Global Grant?", a: "A large-scale funding mechanism from The Rotary Foundation supporting international humanitarian projects across Rotary's areas of focus." },
+        { q: "What is the Rotary Wheel?", a: "Rotary's official emblem — a cogged gear with 6 spokes and 24 cogs, one of the most recognised service-club symbols in the world." }
+      ]
+    },
+    polio: {
+      label: "Polio & Global Service",
+      cards: [
+        { q: "When did Rotary begin its anti-polio work, and where?", a: "In 1979, with a project to immunize six million children in the Philippines." },
+        { q: "When was PolioPlus launched?", a: "1985 — making it the first, and still largest, internationally coordinated private-sector support of a public health initiative." },
+        { q: "How many children did polio paralyse per day in 1988?", a: "Roughly 1,000 children a day worldwide, across 125 countries." },
+        { q: "What is the Global Polio Eradication Initiative (GPEI)?", a: "A partnership launched in 1988 by Rotary and the World Health Organization to eradicate polio globally." },
+        { q: "How much has Rotary contributed to polio eradication globally?", a: "More than $2.6 billion and countless volunteer hours." },
+        { q: "By how much have global wild polio cases fallen since 1988?", a: "By more than 99.9% — from roughly 350,000 cases in 125 countries to today's tiny number in just two endemic countries." },
+        { q: "Which are the only two countries where polio remains endemic?", a: "Afghanistan and Pakistan." },
+        { q: "What human impact has Rotary's polio work had?", a: "Estimated to have prevented 20 million cases of paralysis and saved over 1.5 million lives." },
+        { q: "When was Africa certified wild-poliovirus-free?", a: "In 2020, when the WHO African Region received its wild-polio-free certification." },
+        { q: "What is End Polio Now?", a: "Rotary's public awareness and fundraising campaign that supports the PolioPlus programme." }
+      ]
+    },
+    dates: {
+      label: "Key Rotary Dates",
+      cards: [
+        { q: "What happened on 23 February 1905?", a: "The first Rotary club was founded in Chicago, Illinois, by Paul P. Harris and three companions." },
+        { q: "When was the second Rotary club chartered?", a: "January 1906 — in San Francisco." },
+        { q: "When did Rotary hold its first convention?", a: "August 1910 in Chicago; the National Association of Rotary Clubs formed with 16 clubs." },
+        { q: "When did Rotary get its first club outside North America?", a: "1912 — the Rotary Club of London." },
+        { q: "When was The Rotary Foundation formally established?", a: "1928, growing from Arch C. Klumph's 1917 proposal for an endowment fund for doing good in the world." },
+        { q: "When did Herbert J. Taylor write the Four-Way Test?", a: "1932. Rotary formally adopted it in 1943." },
+        { q: "What was Rotary's role in 1945?", a: "Rotary delegates helped draft the United Nations Charter in San Francisco." },
+        { q: "When did Paul Harris die?", a: "27 January 1947." },
+        { q: "When were Rotary's mottoes formally adopted?", a: "1950 — Service Above Self and He Profits Most Who Serves Best were both formally adopted." },
+        { q: "When did Rotary clubs begin admitting women?", a: "1989, following a US Supreme Court ruling." },
+        { q: "When was Nigeria's first Rotary club chartered?", a: "The Rotary Club of Kano was chartered on 28 April 1961." },
+        { q: "When was the Rotary Club of Victoria Island, Lagos chartered?", a: "1982." },
+        { q: "When did Jonathan Majiyagbe serve as RI President?", a: "2003-04, with the theme Lend a Hand." },
+        { q: "When did Yinka Babalola become RI President?", a: "2026-27, with the theme Create Lasting Impact." }
+      ]
+    }
+  };
+
+  // ─── Flashcard State ───
+  var currentCollection = 'ri';
+  var currentIndex = 0;
+
+  function switchCollection(key, btn) {
+    document.querySelectorAll('.coll-btn').forEach(function(b) { b.classList.remove('active'); });
+    if (btn) btn.classList.add('active');
+    currentCollection = key;
+    currentIndex = 0;
+    document.getElementById('fc-card').classList.remove('flipped');
+    renderCard();
+  }
+
+  function renderCard() {
+    var col = collections[currentCollection];
+    var card = col.cards[currentIndex];
+    var total = col.cards.length;
+    document.getElementById('fc-label').textContent = col.label;
+    document.getElementById('fc-question').textContent = card.q;
+    document.getElementById('fc-answer').textContent = card.a;
+    document.getElementById('fc-progress').textContent = 'Card ' + (currentIndex + 1) + ' of ' + total;
+    document.getElementById('fc-counter').textContent = (currentIndex + 1) + ' / ' + total;
+    document.getElementById('fc-prev').disabled = currentIndex === 0;
+    document.getElementById('fc-next').disabled = currentIndex === total - 1;
+  }
+
+  function flipCard() {
+    document.getElementById('fc-card').classList.toggle('flipped');
+  }
+
+  function navCard(dir) {
+    var col = collections[currentCollection];
+    var newIndex = currentIndex + dir;
+    if (newIndex < 0 || newIndex >= col.cards.length) return;
+    currentIndex = newIndex;
+    document.getElementById('fc-card').classList.remove('flipped');
+    setTimeout(renderCard, 50);
+  }
+
+  window.addEventListener('load', function() { renderCard(); });
+</script>
+
+</body>
+</html>
